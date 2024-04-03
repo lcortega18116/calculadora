@@ -13,12 +13,8 @@ import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    //lateinit var textResult : EditText
-    //lateinit var btn1 : Button
-
     lateinit var binding : ActivityMainBinding
     var strArray = arrayListOf<String>()
-    var prueba = arrayListOf<String>()
     var strTemp = ""
     var displayText = ""
     var validation = 0.0
@@ -27,29 +23,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //textResult = findViewById(R.id.textResult)
-        //btn1 = findViewById(R.id.btn1)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        prueba.add("2")
-        prueba.add("+")
-        prueba.add("2")
-        prueba.add("*")
-        prueba.add("(")
-        prueba.add("(")
-        prueba.add("3")
-        prueba.add("+")
-        prueba.add("2")
-        prueba.add(")")
-        prueba.add("+")
-        prueba.add("(")
-        prueba.add("3")
-        prueba.add("*")
-        prueba.add("2")
-        prueba.add(")")
-        prueba.add(")")
-        //var solucion  = solvearray(prueba)
-        //binding.textResult. setText(solucion.toString())
         setContent()
 
     }
@@ -78,7 +53,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.btnClear.setOnClickListener(this)
         binding.btnEqual.setOnClickListener(this)
     }
-    fun solvearray(array: MutableList<String>): Double {
+    fun solveArray(array: MutableList<String>): Double {
         var stack = arrayListOf<String>()
         var stack2 = arrayListOf<String>()
         var result = 0.0
@@ -218,12 +193,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Log.d("Resultado", result.toString())
         }
         else
-            result = solvearray(stack2)
+            result = solveArray(stack2)
         return result
     }
 
 
-        override fun onClick(v: View?) {
+    override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
                 R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4,
@@ -257,7 +232,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.btnCloseParenthesis -> {
                     validation = validation-1
                     if (validation < 0){
-                        binding.textResult.setText("Error")
+                        binding.textResult.setText("Math Error")
                         GlobalScope.launch {
                             delayFunction()
                             withContext(Dispatchers.Main) {
@@ -273,7 +248,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         strTemp =   ""
                         binding.textResult.setText(displayText)
                     }
-                    Log.d("validation", validation.toString())
+                    //Log.d("validation", validation.toString())
                 }
 
                 R.id.btnClear -> {
@@ -289,7 +264,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     try {
                         Log.d("array", strArray.toString())
                         if(validation != 0.0){
-                            binding.textResult.setText("Error")
+                            binding.textResult.setText("Math Error")
                             GlobalScope.launch {
                                 delayFunction()
                                 withContext(Dispatchers.Main) {
@@ -298,7 +273,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             }
                         }
                         else{
-                            val result = solvearray(strArray)
+                            val result = solveArray(strArray)
                             if (result % 1 == 0.0)
                                 displayText = result.roundToInt().toString()// Redondear a entero si no hay decimales
                             else
@@ -308,7 +283,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             binding.textResult.setText(displayText)
                         }
                     } catch (e: Exception) {
-                        binding.textResult.setText("Error")
+                        binding.textResult.setText("Math Error")
                     }
                 }
             }
