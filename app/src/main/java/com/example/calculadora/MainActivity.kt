@@ -260,10 +260,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 R.id.btnEqual -> {
-                    if (strTemp != "") {strArray.add(strTemp)}
+
                     try {
-                        Log.d("array", strArray.toString())
+
                         if(validation != 0.0){
+                            Log.d("array", strArray.toString())
                             binding.textResult.setText("Math Error")
                             GlobalScope.launch {
                                 delayFunction()
@@ -273,6 +274,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             }
                         }
                         else{
+                            if (strTemp != "") {strArray.add(strTemp)}
+                            Log.d("array", strArray.toString())
                             val result = solveArray(strArray)
                             if (result % 1 == 0.0)
                                 displayText = result.roundToInt().toString()// Redondear a entero si no hay decimales
